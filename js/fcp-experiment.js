@@ -10,9 +10,6 @@ const probs = [
 // Define reward values.
 const rewards = [10, 0];
 
-// Define offers range.
-const bonus_offers = [0, 1, 2, 3, 4, 5, 6];
-
 // Define arcade colors.
 const arcade_colors = jsPsych.randomization.shuffle([
     jsPsych.randomization.shuffle(["#D8271C", "#741CD8"]), // red, purple
@@ -24,7 +21,7 @@ var beep_test = {
     type: 'audio-keyboard-response',
     stimulus: 'audio/beep_loop.wav',
     choices: jsPsych.ALL_KEYS,
-    prompt: 'Make sure your sound is turned on. </p > Then, press the space bar to proceed to the audio test.',
+    prompt: 'Make sure your sound is turned on. </p> Then, press the space bar to proceed to the audio test.',
 };
 
 // Define audio test trials.
@@ -76,10 +73,13 @@ function generateChangePoints() {
     try {
         while (totalTrials < 180 && counter < maxIterations) {
             let changePoint = Math.floor(Math.random() * 8) + 28; // Random number between 28 and 35
-            if (totalTrials + changePoint > 180) break;
+            if (totalTrials + changePoint > 180) {
+                changePoint = 180 - totalTrials; // Adjust to fill up to 180 trials
+            }
             changePoints.push(changePoint);
             totalTrials += changePoint;
             counter++;
+            if (totalTrials >= 180) break;
         }
 
         if (counter >= maxIterations) {
@@ -92,7 +92,7 @@ function generateChangePoints() {
     return changePoints;
 }
 
-// Generate change points
+// Generate change points for 'easy' and 'hard' trials
 let easyChangePoints, hardChangePoints;
 try {
     easyChangePoints = generateChangePoints();
@@ -107,7 +107,7 @@ function generatePredefinedOutcomes(contexts, trialsPerContext) {
 
     for (let context = 0; context < contexts.length; context++) {
         let contextOutcomes = [];
-        for (let i = 0; i < trialsPerContext; i++) {
+        for (let i = 0; i < trialsPerContext[context]; i++) {
             contextOutcomes.push(Math.random() < probs[context][0] ? rewards[0] : rewards[1]);
         }
         predefinedOutcomes.push(contextOutcomes);
@@ -116,39 +116,96 @@ function generatePredefinedOutcomes(contexts, trialsPerContext) {
     return predefinedOutcomes;
 }
 
-// Generate predefined outcomes for each context (e.g., easy and hard)
-const predefinedOutcomes = generatePredefinedOutcomes(probs, 45); // 45 trials per context
+// Calculate total trials per context
+const totalEasyTrials = easyChangePoints.reduce((sum, points) => sum + points, 0);
+const totalHardTrials = hardChangePoints.reduce((sum, points) => sum + points, 0);
 
-// Define trial types
-const trialTypes = [];
-let easyCount = 0;
-let hardCount = 0;
+// Generate predefined outcomes for each context
+const predefinedOutcomes = generatePredefinedOutcomes(probs, [totalEasyTrials, totalHardTrials]);
 
-// Calculate maximum possible easy and hard trials
-const maxEasy = easyChangePoints.reduce((sum, points) => sum + points, 0);
-const maxHard = hardChangePoints.reduce((sum, points) => sum + points, 0);
+// Function to generate predefined token offers
+function generatePredefinedTokenOffers() {
+    let predefinedTokenOffers = [];
 
-if (maxEasy + maxHard < 180) {
-    console.warn('Warning: Total number of easy and hard trial types is less than 180');
+    // Define counts for each token value
+    const tokenCounts = { 0: 30, 1: 30, 2: 30, 3: 30, 4: 30, 5: 30, 6: 30 };
+
+    // Populate predefinedTokenOffers with the values
+    for (let tokenValue in tokenCounts) {
+        predefinedTokenOffers = predefinedTokenOffers.concat(
+            Array(tokenCounts[tokenValue]).fill(parseInt(tokenValue))
+        );
+    }
+
+    // Shuffle predefined token offers
+    predefinedTokenOffers = jsPsych.randomization.shuffle(predefinedTokenOffers);
+    return predefinedTokenOffers;
+}
+
+// Generate predefined token offers
+const predefinedTokenOffers = generatePredefinedTokenOffers();
+
+// Generate trial types based on change points
+let trialTypes = [];
+let totalTrialsGenerated = 0;
+function generateTrialTypes(easyChangePoints, hardChangePoints) {
+    let trialTypes = [];
+    let easyIndex = 0;
+    let hardIndex = 0;
+
+    while (totalTrialsGenerated < 180) {
+        if (easyIndex < easyChangePoints.length) {
+            // Add 'easy' trials
+            for (let i = 0; i < easyChangePoints[easyIndex]; i++) {
+                trialTypes.push('easy');
+                totalTrialsGenerated++;
+            }
+            easyIndex++;
+        }
+        if (totalTrialsGenerated >= 180) break;
+        if (hardIndex < hardChangePoints.length) {
+            // Add 'hard' trials
+            for (let i = 0; i < hardChangePoints[hardIndex]; i++) {
+                trialTypes.push('hard');
+                totalTrialsGenerated++;
+            }
+            hardIndex++;
+        }
+    }
+
+    // Fill any remaining trials to reach 180
+    while (totalTrialsGenerated < 180) {
+        trialTypes.push('easy');
+        totalTrialsGenerated++;
+    }
+
+    return trialTypes;
+}
+
+// Generate trialTypes array
+try {
+    trialTypes = generateTrialTypes(easyChangePoints, hardChangePoints);
+} catch (error) {
+    console.error('Error generating trial types:', error);
 }
 
 // Function to calculate the longest sequence of similar elements
 function longestSequence(arr) {
     if (!Array.isArray(arr) || arr.length === 0) return 0;
 
-    var counts = [0, 0];
     var seqmax = 0;
+    var currentElement = null;
+    var currentCount = 0;
 
     try {
         for (let i = 0; i < arr.length; i++) {
-            if (arr[i] === 0) {
-                counts[0]++;
-                counts[1] = 0;
-            } else if (arr[i] === 1) {
-                counts[1]++;
-                counts[0] = 0;
+            if (arr[i] === currentElement) {
+                currentCount++;
+            } else {
+                currentElement = arr[i];
+                currentCount = 1;
             }
-            seqmax = Math.max(seqmax, counts[0], counts[1]);
+            seqmax = Math.max(seqmax, currentCount);
         }
     } catch (error) {
         console.error('Error calculating the longest sequence:', error);
@@ -159,50 +216,50 @@ function longestSequence(arr) {
 
 // Define block structure
 const factors = {
-    context: [0, 1, 2],
-    bonus_offer: bonus_offers
+    context: [0, 1]
 };
 
 // Construct trials
 var fcp_trials = [];
 var trial_no = 0;
 var predefinedOutcomeIndex = [0, 0]; // Index to track predefined outcomes for each context
+var predefinedTokenOfferIndex = 0; // Index to track predefined token offers
 
 try {
     trialTypes.forEach(trialType => {
         let context = (trialType === 'easy') ? 0 : 1;
 
-        // Shuffle trial order
-        var block = jsPsych.randomization.factorial(factors, 1);
+        // Create a block of trials for the current context
+        var block = [{ context: context }];
 
-        // Check maximum sequence length
+        // Ensure the longest sequence is less than 5
         let seqmax = longestSequence(block.map(a => a.context));
-
-        // Ensure longest sequence is length = 4
         while (seqmax >= 5) {
-            block = jsPsych.randomization.factorial(factors, 1);
+            block = jsPsych.randomization.repeat([{ context: context }], 1);
             seqmax = longestSequence(block.map(a => a.context));
         }
 
         // Iterate over block trials
         block.forEach((info) => {
-            info.context = context;
-
             // Use predefined outcomes
             let predefinedReward = predefinedOutcomes[context][predefinedOutcomeIndex[context]];
             predefinedOutcomeIndex[context]++; // Move to the next predefined outcome
+
+            // Use predefined token offer
+            let predefinedTokenOffer = predefinedTokenOffers[predefinedTokenOfferIndex % predefinedTokenOffers.length];
+            predefinedTokenOfferIndex++; // Move to the next predefined token offer
 
             try {
                 if (Math.random() < 0.5) {
                     info.correct = 1;
                     info.arcade_ids = [2 * info.context, 2 * info.context + 1];
-                    info.arcade_outcomes = [predefinedReward, rewards[1 - predefinedReward]];
+                    info.arcade_outcomes = [predefinedReward, rewards[1 - rewards.indexOf(predefinedReward)]];
                     info.arcade_colors = arcade_colors[info.context];
                     info.arcade_probs = probs[info.context];
                 } else {
                     info.correct = 0;
                     info.arcade_ids = [2 * info.context + 1, 2 * info.context];
-                    info.arcade_outcomes = [rewards[1 - predefinedReward], predefinedReward];
+                    info.arcade_outcomes = [rewards[1 - rewards.indexOf(predefinedReward)], predefinedReward];
                     info.arcade_colors = arcade_colors[info.context].slice().reverse();
                     info.arcade_probs = probs[info.context].slice().reverse();
                 }
@@ -210,7 +267,7 @@ try {
                 // Construct trial
                 const trial = {
                     type: 'fcp-trial',
-                    bonus_offer: info.bonus_offer,
+                    bonus_offer: predefinedTokenOffer,
                     correct: info.correct,
                     arcade_outcomes: info.arcade_outcomes,
                     arcade_colors: info.arcade_colors,
@@ -227,16 +284,8 @@ try {
                     },
                 };
 
-                // Define looping node
-                const trial_node = {
-                    timeline: [trial],
-                    loop_function: function (data) {
-                        // Custom loop logic if needed
-                    }
-                };
-
                 // Append trial
-                fcp_trials.push(trial_node);
+                fcp_trials.push(trial);
 
                 // Increment trial counter
                 trial_no++;
@@ -253,64 +302,35 @@ try {
 // Define explicit knowledge task.
 var explicit_knowledge = [];
 try {
-  var machines = jsPsych.randomization.shuffle([
-    "img/machines/machine1.png",
-    "img/machines/machine2.png",
-    "img/machines/machine5.png",
-    "img/machines/machine6.png"
-  ]);
+    var machines = jsPsych.randomization.shuffle([
+        "img/machines/machine1.png",
+        "img/machines/machine2.png",
+        "img/machines/machine5.png",
+        "img/machines/machine6.png"
+    ]);
 
-  for (let i = 0; i < 6; i++) {
-    // Construct trial.
-    const explicit_trial = {
-      type: 'image-slider-response',
-      stimulus: machines[i],
-      stimulus_height: 300,
-      min: 1,
-      max: 9,
-      start: 5,
-      step: 1,
-      labels: [1, 2, 3, 4, 5, 6, 7, 8, 9],
-      prompt: "If you played this machine 10 times, how many times would you win? <br> <br>",
-      button_label: "Submit response",
-      data: {
-        phase: 'explicit',
-        stimulus: machines[i]
-      },
-    };
+    for (let i = 0; i < machines.length; i++) {
+        // Construct trial.
+        const explicit_trial = {
+            type: 'image-slider-response',
+            stimulus: machines[i],
+            stimulus_height: 300,
+            min: 1,
+            max: 9,
+            start: 5,
+            step: 1,
+            labels: [1, 2, 3, 4, 5, 6, 7, 8, 9],
+            prompt: "If you played this machine 10 times, how many times would you win? <br><br>",
+            button_label: "Submit response",
+            data: {
+                phase: 'explicit',
+                stimulus: machines[i]
+            },
+        };
 
-    // Append trial.
-    explicit_knowledge.push(explicit_trial);
-  }
-} catch (error) {
-  console.error('在构建 explicit knowledge task 时出现错误:', error);
-}
-
-//---------------------------------------//
-// Define functions.
-//---------------------------------------//
-
-function longestSequence(arr) {
-  if (!Array.isArray(arr) || arr.length === 0) return 0;
-
-  // Initialize variables.
-  var counts = [0, 0];
-  var seqmax = 0;
-
-  try {
-    for (let i = 0; i < arr.length; i++) {
-      if (arr[i] === 0) {
-        counts[0]++;
-        counts[1] = 0;
-      } else if (arr[i] === 1) {
-        counts[1]++;
-        counts[0] = 0;
-      }
-      seqmax = Math.max(seqmax, counts[0], counts[1]);
+        // Append trial.
+        explicit_knowledge.push(explicit_trial);
     }
-  } catch (error) {
-    console.error('在计算最长连续序列时出现错误:', error);
-  }
-
-  return seqmax;
+} catch (error) {
+    console.error('Error constructing explicit knowledge task:', error);
 }
