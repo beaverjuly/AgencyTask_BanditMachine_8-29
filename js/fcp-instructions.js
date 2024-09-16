@@ -314,7 +314,7 @@ var quiz02 = {
     "<b><i>True</i> or <i>False</i>:</b>&nbsp;&nbsp;How lucky a slot machine is depends on whether you or the computer chooses it.",
     "<b><i>True</i> or <i>False</i>:</b>&nbsp;&nbsp;The tokens I earn will affect my bonus payment.",
   ],
-  correct: ["false", "false", "false", "true"]
+  correct: ["true", "false", "false", "true"]
 }
 
 // Explicit instructions

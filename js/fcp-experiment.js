@@ -4,7 +4,7 @@ const style = "width:auto; height:auto; max-width:100%; max-height:80vh;";
 // Define reward probabilities (per context)
 const probs = [
   [0.90, 0.10],
-  [0.70, 0.30],
+  [0.60, 0.40],
 ];
 
 // Generate the change points for easy and hard trials
