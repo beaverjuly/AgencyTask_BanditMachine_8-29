@@ -4,7 +4,7 @@ const style = "width:auto; height:auto; max-width:100%; max-height:80vh;";
 // Define reward probabilities (per context)
 const probs = [
     [0.90, 0.10],
-    [0.70, 0.30],
+    [0.60, 0.40],
 ];
 
 // Define reward values.
@@ -117,7 +117,7 @@ function generatePredefinedOutcomes(contexts, trialsPerContext) {
 }
 
 // Generate predefined outcomes for each context (e.g., easy and hard)
-const predefinedOutcomes = generatePredefinedOutcomes(probs, 90); // Assuming 90 trials per context
+const predefinedOutcomes = generatePredefinedOutcomes(probs, 45); // 45 trials per context
 
 // Define trial types
 const trialTypes = [];
