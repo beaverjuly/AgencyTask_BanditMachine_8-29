@@ -80,7 +80,7 @@ var instructions01a = {
   prompt: [
     `<img src="img/instructions/instructions1.png" style="${style}"></img>`,
   ],
-  stimulus: ['audio/instructions1.wav'],
+ // stimulus: ['audio/instructions1.wav'],
   choices: ['Next'],
 }
 
@@ -89,7 +89,7 @@ var instructions01b = {
   prompt: [
     `<img src="img/instructions/instructions2.png" style="${style}"></img>`,
   ],
-  stimulus: ['audio/instructions2.wav'],
+//  stimulus: ['audio/instructions2.wav'],
   choices: ['Next'],
 }
 
@@ -98,7 +98,7 @@ var instructions01c = {
   prompt: [
     `<img src="img/instructions/instructions3.png" style="${style}"></img>`,
   ],
-  stimulus: ['audio/instructions3.wav'],
+//  stimulus: ['audio/instructions3.wav'],
   choices: ['Next'],
 }
 

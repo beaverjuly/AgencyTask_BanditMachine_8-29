@@ -78,9 +78,9 @@
   });
 
   // Audio tests and instructions
-  timeline.push(beep_test);
-  timeline.push(audio_test_1);
-  timeline.push(audio_test_2);
+  //timeline.push(beep_test);
+  //timeline.push(audio_test_1);
+  //timeline.push(audio_test_2);
 
   // Instructions (ensure these variables are defined in fcp-instructions.js)
   timeline = timeline.concat(instructions_loop_01);
@@ -106,7 +106,7 @@
   jsPsych.init({
     timeline: timeline,
     show_progress_bar: true,
-    use_webaudio: false,
+    //use_webaudio: false,
     on_finish: function () {
       // Remove the unload event listener
       window.removeEventListener("beforeunload", verify_unload);

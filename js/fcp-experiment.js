@@ -21,15 +21,15 @@ const arcade_colors = jsPsych.randomization.shuffle([
 ]);
 
 // Define audio test.
-var beep_test = {
-    type: 'audio-keyboard-response',
-    stimulus: 'audio/beep_loop.wav',
-    choices: jsPsych.ALL_KEYS,
-    prompt: 'Make sure your sound is turned on. </p> Then, press the space bar to proceed to the audio test.',
-};
+// var beep_test = {
+//    type: 'audio-keyboard-response',
+//    stimulus: 'audio/beep_loop.wav',
+//    choices: jsPsych.ALL_KEYS,
+//    prompt: 'Make sure your sound is turned on. </p> Then, press the space bar to proceed to the audio test.',
+//};
 
 // Define audio test trials.
-var audio_test_1 = {
+//var audio_test_1 = {
     type: 'audio-test',
     stimulus: 'audio/turtle.wav',
     choices: ['repeat', 'fish', 'tiger', 'turtle', 'shark'],
@@ -46,26 +46,26 @@ var audio_test_1 = {
         '<img src="img/shark.png" height="200px" width="200px"/>'
     ],
     post_trial_gap: 1000
-};
+//};
 
-var audio_test_2 = {
-    type: 'audio-test',
-    stimulus: 'audio/shark.wav',
-    choices: ['repeat', 'turtle', 'shark', 'fish', 'tiger'],
-    correct_answer: 2,
-    prompt: 'Again, click on the word that you just heard.',
-    incorrect_prompt: 'Incorrect, please adjust your volume and try again.',
-    margin_vertical: '40px',
-    margin_horizontal: '10px',
-    button_html: [
-        '<img src="img/replay.png" height="200px" width="200px"/>',
-        '<img src="img/turtle.png" height="200px" width="200px"/>',
-        '<img src="img/shark.png" height="200px" width="200px"/>',
-        '<img src="img/fish.png" height="200px" width="200px"/>',
-        '<img src="img/tiger.png" height="200px" width="200px"/>'
-    ],
-    post_trial_gap: 1000
-};
+//var audio_test_2 = {
+//    type: 'audio-test',
+//    stimulus: 'audio/shark.wav',
+//    choices: ['repeat', 'turtle', 'shark', 'fish', 'tiger'],
+//    correct_answer: 2,
+//    prompt: 'Again, click on the word that you just heard.',
+//    incorrect_prompt: 'Incorrect, please adjust your volume and try again.',
+//    margin_vertical: '40px',
+//    margin_horizontal: '10px',
+//    button_html: [
+//        '<img src="img/replay.png" height="200px" width="200px"/>',
+//        '<img src="img/turtle.png" height="200px" width="200px"/>',
+//        '<img src="img/shark.png" height="200px" width="200px"/>',
+//        '<img src="img/fish.png" height="200px" width="200px"/>',
+//        '<img src="img/tiger.png" height="200px" width="200px"/>'
+//    ],
+//    post_trial_gap: 1000
+//};
 
 // Generate the change points for easy and hard trials in the volatile block
 function generateChangePoints() {
