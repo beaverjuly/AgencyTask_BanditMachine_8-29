@@ -461,4 +461,24 @@ try {
         // Construct trial.
         const explicit_trial = {
             type: 'image-slider-response',
-            
+            stimulus: machines[i],
+            stimulus_height: 300,
+            min: 1,
+            max: 9,
+            start: 5,
+            step: 1,
+            labels: [1, 2, 3, 4, 5, 6, 7, 8, 9],
+            prompt: "If you played this machine 10 times, how many times would you win? <br><br>",
+            button_label: "Submit response",
+            data: {
+                phase: 'explicit',
+                stimulus: machines[i]
+            },
+        };
+
+        // Append trial.
+        explicit_knowledge.push(explicit_trial);
+    }
+} catch (error) {
+    console.error('Error constructing explicit knowledge task:', error);
+}
