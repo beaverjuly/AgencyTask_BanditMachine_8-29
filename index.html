@@ -11,25 +11,25 @@
   <!-- Load jsPsych -->
   <script src="https://cdn.jsdelivr.net/npm/jspsych@6.1.0/jspsych.min.js"></script>
 
-  <!-- Load pavlovia requirements 
-  <script src="lib/jspsych-pavlovia-3.0.0.js"></script> -->
-
-  <!-- Load experiment -->
-  <script src="js/fcp-experiment.js" type="text/javascript"></script>
-  <script src="js/fcp-instructions.js" type="text/javascript"></script>
-
   <!-- Load jsPsych plug-ins -->
-  <script src="js/jspsych-fcp-trial.js" type="text/javascript"></script>
-  <script src="js/jspsych-fcp-practice.js" type="text/javascript"></script>
-  <script src="js/jspsych-fcp-comprehension.js" type="text/javascript"></script>
-  <script src="js/jspsych-survey-debrief.js" type="text/javascript"></script>
-  <script src="js/jspsych-audio-instructions.js" type="text/javascript"></script>
-  <script src="js/jspsych-audio-test.js" type="text/javascript"></script>
-  <script src="lib/jspsych-6.1.0/plugins/jspsych-image-slider-response.js" type="text/javascript"></script>
-  <script src="lib/jspsych-6.1.0/plugins/jspsych-instructions.js" type="text/javascript"></script>
-  <script src="lib/jspsych-6.1.0/plugins/jspsych-call-function.js" type="text/javascript"></script>
-  <script src="lib/jspsych-6.1.0/plugins/jspsych-fullscreen.js" type="text/javascript"></script>
-  <script src="lib/jspsych-6.1.0/plugins/jspsych-audio-keyboard-response.js" type="text/javascript"></script>
+  <!-- Load standard jsPsych plugins first -->
+  <script src="lib/jspsych-6.1.0/plugins/jspsych-image-slider-response.js"></script>
+  <script src="lib/jspsych-6.1.0/plugins/jspsych-instructions.js"></script>
+  <script src="lib/jspsych-6.1.0/plugins/jspsych-call-function.js"></script>
+  <script src="lib/jspsych-6.1.0/plugins/jspsych-fullscreen.js"></script>
+  <script src="lib/jspsych-6.1.0/plugins/jspsych-audio-keyboard-response.js"></script>
+
+  <!-- Load custom jsPsych plug-ins -->
+  <script src="js/jspsych-fcp-trial.js"></script>
+  <script src="js/jspsych-fcp-practice.js"></script>
+  <script src="js/jspsych-fcp-comprehension.js"></script>
+  <script src="js/jspsych-survey-debrief.js"></script>
+  <script src="js/jspsych-audio-instructions.js"></script>
+  <script src="js/jspsych-audio-test.js"></script>
+
+  <!-- Load experiment scripts -->
+  <script src="js/fcp-experiment.js"></script>
+  <script src="js/fcp-instructions.js"></script>
 
   <!-- Load CSS styles -->
   <link rel="stylesheet" href="lib/jspsych-6.1.0/css/jspsych.css">
