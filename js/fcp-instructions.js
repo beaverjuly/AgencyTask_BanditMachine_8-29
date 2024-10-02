@@ -62,7 +62,7 @@ var instructions01a = {
   pages: [
     `<img src="img/instructions/instructions1.png" style="${style}"></img>`,
   ],
-  cshow_clickable_nav: true,
+  show_clickable_nav: true,
 };
 
 var instructions01b = {
