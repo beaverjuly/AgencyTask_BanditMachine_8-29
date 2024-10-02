@@ -38,10 +38,10 @@ preload_images = [
   "img/machines/machine4.png",
   "img/machines/machine5.png",
   "img/machines/machine6.png",
-  "img/shark.png",
-  "img/turtle.png",
-  "img/fish.png",
-  "img/tiger.png",
+//  "img/shark.png",
+//  "img/turtle.png",
+//  "img/fish.png",
+//  "img/tiger.png",
   "img/replay.png",
 ];
 
@@ -62,7 +62,7 @@ var instructions01a = {
   pages: [
     `<img src="img/instructions/instructions1.png" style="${style}"></img>`,
   ],
-  show_clickable_nav: true,
+  choices: ['Next'],
 };
 
 var instructions01b = {
@@ -70,7 +70,7 @@ var instructions01b = {
   pages: [
     `<img src="img/instructions/instructions2.png" style="${style}"></img>`,
   ],
-  show_clickable_nav: true,
+  choices: ['Next'],
 };
 
 var instructions01c = {
@@ -78,7 +78,7 @@ var instructions01c = {
   pages: [
     `<img src="img/instructions/instructions3.png" style="${style}"></img>`,
   ],
-  show_clickable_nav: true,
+  choices: ['Next'],
 };
 
 var instructions01d = {
@@ -86,7 +86,7 @@ var instructions01d = {
   pages: [
     `<img src="img/instructions/instructions4.png" style="${style}"></img>`,
   ],
-  show_clickable_nav: true,
+  choices: ['Next'],
 };
 
 var instructions01e = {
@@ -94,7 +94,7 @@ var instructions01e = {
   pages: [
     `<img src="img/instructions/instructions5.png" style="${style}"></img>`,
   ],
-  show_clickable_nav: true,
+  choices: ['Next'],
 };
 
 // Practice trials #1.
@@ -119,7 +119,7 @@ var instructions02a = {
   pages: [
     `<img src="img/instructions/instructions6.png" style="${style}"></img>`,
   ],
-  show_clickable_nav: true,
+  choices: ['Next'],
 };
 
 var instructions02b = {
@@ -127,7 +127,7 @@ var instructions02b = {
   pages: [
     `<img src="img/instructions/instructions7.png" style="${style}"></img>`,
   ],
-  show_clickable_nav: true,
+  choices: ['Next'],
 };
 
 var instructions02c = {
@@ -135,7 +135,7 @@ var instructions02c = {
   pages: [
     `<img src="img/instructions/instructions8.png" style="${style}"></img>`,
   ],
-  show_clickable_nav: true,
+  choices: ['Next'],
 };
 
 // Quiz #1.
@@ -157,7 +157,7 @@ var instructions03a = {
   pages: [
     `<img src="img/instructions/instructions9.png" style="${style}"></img>`,
   ],
-  show_clickable_nav: true,
+  choices: ['Next'],
 };
 
 var instructions03b = {
@@ -165,7 +165,7 @@ var instructions03b = {
   pages: [
     `<img src="img/instructions/instructions10.png" style="${style}"></img>`,
   ],
-  show_clickable_nav: true,
+  choices: ['Next'],
 };
 
 // Practice trials #2.
@@ -185,7 +185,7 @@ var instructions04a = {
   pages: [
     `<img src="img/instructions/instructions11.png" style="${style}"></img>`,
   ],
-  show_clickable_nav: true,
+  choices: ['Next'],
 };
 
 // Practice trials #3.
@@ -204,7 +204,7 @@ var instructions05a = {
   pages: [
     `<img src="img/instructions/instructions12.png" style="${style}"></img>`,
   ],
-  show_clickable_nav: true,
+  choices: ['Next'],
 };
 
 var instructions05b = {
@@ -212,7 +212,7 @@ var instructions05b = {
   pages: [
     `<img src="img/instructions/instructions13.png" style="${style}"></img>`,
   ],
-  show_clickable_nav: true,
+  choices: ['Next'],
 };
 
 var instructions05c = {
@@ -220,7 +220,7 @@ var instructions05c = {
   pages: [
     `<img src="img/instructions/instructions14.png" style="${style}"></img>`,
   ],
-  show_clickable_nav: true,
+  choices: ['Next'],
 };
 
 //------------------------------------//
@@ -232,7 +232,7 @@ var instructions06a = {
   pages: [
     `<img src="img/instructions/instructions15.png" style="${style}"></img>`,
   ],
-  show_clickable_nav: true,
+  choices: ['Next'],
 };
 
 var instructions06b = {
@@ -240,7 +240,7 @@ var instructions06b = {
   pages: [
     `<img src="img/instructions/instructions16.png" style="${style}"></img>`,
   ],
-  show_clickable_nav: true,
+  choices: ['Next'],
 };
 
 var instructions06c = {
@@ -248,7 +248,7 @@ var instructions06c = {
   pages: [
     `<img src="img/instructions/instructions17.png" style="${style}"></img>`,
   ],
-  show_clickable_nav: true,
+  choices: ['Next'],
 };
 
 var instructions06d = {
@@ -256,7 +256,7 @@ var instructions06d = {
   pages: [
     `<img src="img/instructions/instructions18.png" style="${style}"></img>`,
   ],
-  show_clickable_nav: true,
+  choices: ['Next'],
 };
 
 var instructions06e = {
@@ -264,7 +264,7 @@ var instructions06e = {
   pages: [
     `<img src="img/instructions/instructions19.png" style="${style}"></img>`,
   ],
-  show_clickable_nav: true,
+  choices: ['Next'],
 };
 
 // Quiz #2.
@@ -288,7 +288,7 @@ var explicit_instructions1 = {
   pages: [
     `<img src="img/instructions/explicit1.png" style="${style}"></img>`,
   ],
-  show_clickable_nav: true,
+  choices: ['Next'],
 };
 
 var explicit_instructions2 = {
@@ -296,7 +296,7 @@ var explicit_instructions2 = {
   pages: [
     `<img src="img/instructions/explicit2.png" style="${style}"></img>`,
   ],
-  show_clickable_nav: true,
+  schoices: ['Next'],
 };
 
 //------------------------------------//
