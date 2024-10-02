@@ -17,15 +17,15 @@
   <script src="lib/jspsych-6.1.0/plugins/jspsych-instructions.js"></script>
   <script src="lib/jspsych-6.1.0/plugins/jspsych-call-function.js"></script>
   <script src="lib/jspsych-6.1.0/plugins/jspsych-fullscreen.js"></script>
-  <script src="lib/jspsych-6.1.0/plugins/jspsych-audio-keyboard-response.js"></script>
+  <!--<script src="lib/jspsych-6.1.0/plugins/jspsych-audio-keyboard-response.js"></script>-->
 
   <!-- Load custom jsPsych plug-ins -->
   <script src="js/jspsych-fcp-trial.js"></script>
   <script src="js/jspsych-fcp-practice.js"></script>
   <script src="js/jspsych-fcp-comprehension.js"></script>
   <script src="js/jspsych-survey-debrief.js"></script>
-  <script src="js/jspsych-audio-instructions.js"></script>
-  <script src="js/jspsych-audio-test.js"></script>
+  <!--<script src="js/jspsych-audio-instructions.js"></script>-->
+  <!--<script src="js/jspsych-audio-test.js"></script>-->
 
   <!-- Load experiment scripts -->
   <script src="js/fcp-experiment.js"></script>
@@ -106,10 +106,13 @@
   jsPsych.init({
     timeline: timeline,
     show_progress_bar: true,
-    //use_webaudio: false,
+    use_webaudio: false,
     on_finish: function () {
       // Remove the unload event listener
       window.removeEventListener("beforeunload", verify_unload);
+
+      // local save function
+      jsPsych.data.get().localSave('csv','Bandit_Machine.csv');
 
       // Redirect to the final Qualtrics survey
       document.body.innerHTML =
