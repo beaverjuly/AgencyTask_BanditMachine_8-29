@@ -29,7 +29,7 @@ const arcade_colors = jsPsych.randomization.shuffle([
 //};
 
 // Define audio test trials.
-//var audio_test_1 = {
+/*var audio_test_1 = {
     type: 'audio-test',
     stimulus: 'audio/turtle.wav',
     choices: ['repeat', 'fish', 'tiger', 'turtle', 'shark'],
@@ -46,7 +46,8 @@ const arcade_colors = jsPsych.randomization.shuffle([
         '<img src="img/shark.png" height="200px" width="200px"/>'
     ],
     post_trial_gap: 1000
-//};
+};
+*/
 
 //var audio_test_2 = {
 //    type: 'audio-test',
